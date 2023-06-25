@@ -1,9 +1,12 @@
 package com.example.spring_dblab.controller;
 
 import com.example.spring_dblab.service.UserService;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/user")
 public class UserController {
     UserService userService;
 
@@ -11,6 +14,7 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping("")
     public String getHello() {
         return userService.getHello();
     }
