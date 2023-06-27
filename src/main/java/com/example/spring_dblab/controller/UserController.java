@@ -1,9 +1,11 @@
 package com.example.spring_dblab.controller;
 
+import com.example.spring_dblab.dto.UserDTO;
+import com.example.spring_dblab.model.User;
 import com.example.spring_dblab.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/user")
@@ -14,8 +16,13 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("")
-    public String getHello() {
-        return userService.getHello();
+    @GetMapping()
+    public Optional<User> getUser(@RequestParam(value = "email") String email) {
+        return userService.getUser(email);
+    }
+
+    @PostMapping()
+    public void setUser(@RequestBody UserDTO userDTO) {
+
     }
 }
