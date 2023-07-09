@@ -1,13 +1,23 @@
 package com.example.spring_dblab.controller;
 
-import com.example.spring_dblab.dto.AuthDto;
+import com.example.spring_dblab.dto.LoginDto;
+import com.example.spring_dblab.dto.RefreshTokenDto;
+import com.example.spring_dblab.dto.SignupDto;
 import com.example.spring_dblab.jwt.TokenInfo;
+import com.example.spring_dblab.model.User;
 import com.example.spring_dblab.service.AuthService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.spring_dblab.utils.SecurityUtil;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
+@Slf4j
 @RestController
+@RequestMapping("/auth")
 public class AuthController {
     AuthService authService;
 
@@ -15,10 +25,20 @@ public class AuthController {
         this.authService = authService;
     }
     @PostMapping("/login")
-    public TokenInfo login(@RequestBody AuthDto authDto) {
-        return authService.login(authDto);
+    public TokenInfo login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+        return authService.login(loginDto);
     }
 
     @PostMapping("/signup")
-    public String signUp(@RequestBody AuthDto authDto) { return  authService.signUp(authDto);}
+    public String signUp(@RequestBody SignupDto signupDto) { return  authService.signUp(signupDto);}
+
+    @GetMapping("/relogin")
+    public Optional<User> reLogin() {
+        return authService.reLogin();
+    }
+
+    @PostMapping("/refresh")
+    public TokenInfo refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) throws Exception {
+        return authService.refreshToken(refreshTokenDto);
+    }
 }
