@@ -1,6 +1,6 @@
 package com.example.spring_dblab.service;
 
-import com.example.spring_dblab.model.User;
+import com.example.spring_dblab.entitiy.User;
 import com.example.spring_dblab.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;

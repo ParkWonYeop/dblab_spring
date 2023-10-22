@@ -1,8 +1,8 @@
 package com.example.spring_dblab.service;
 
 import com.example.spring_dblab.dto.EventDto;
-import com.example.spring_dblab.model.Event;
-import com.example.spring_dblab.model.User;
+import com.example.spring_dblab.entitiy.Event;
+import com.example.spring_dblab.entitiy.User;
 import com.example.spring_dblab.repository.EventRepository;
 import com.example.spring_dblab.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

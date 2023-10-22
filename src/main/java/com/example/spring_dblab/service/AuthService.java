@@ -3,25 +3,22 @@ package com.example.spring_dblab.service;
 import com.example.spring_dblab.dto.LoginDto;
 import com.example.spring_dblab.dto.RefreshTokenDto;
 import com.example.spring_dblab.dto.SignupDto;
+import com.example.spring_dblab.enums.RoleEnum;
 import com.example.spring_dblab.jwt.TokenInfo;
 import com.example.spring_dblab.jwt.JwtTokenProvider;
-import com.example.spring_dblab.model.User;
+import com.example.spring_dblab.entitiy.User;
 import com.example.spring_dblab.repository.UserRepository;
 import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 import static com.example.spring_dblab.utils.SecurityUtil.getCurrentMemberId;
 
@@ -65,7 +62,7 @@ public class AuthService {
         try {
             String password_hash = encoder.encode(signupDto.getPassword());
             String email = signupDto.getEmail();
-            List role = new ArrayList<>(Arrays.asList("USER"));
+            List<RoleEnum> role = new ArrayList<>(Arrays.asList(RoleEnum.USER));
             String name = signupDto.getName();
             String nickName = signupDto.getNickName();
 
@@ -80,10 +77,10 @@ public class AuthService {
         }
     }
 
-    public Optional<User> reLogin () {
+    public Optional<TokenInfo> reLogin () {
         try {
             Optional<User> user = userRepository.findByEmail(getCurrentMemberId());
-            return user;
+            return null;
         } catch (Exception err) {
             throw err;
         }

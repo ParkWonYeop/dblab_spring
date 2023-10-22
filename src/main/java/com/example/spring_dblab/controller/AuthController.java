@@ -4,13 +4,9 @@ import com.example.spring_dblab.dto.LoginDto;
 import com.example.spring_dblab.dto.RefreshTokenDto;
 import com.example.spring_dblab.dto.SignupDto;
 import com.example.spring_dblab.jwt.TokenInfo;
-import com.example.spring_dblab.model.User;
 import com.example.spring_dblab.service.AuthService;
-import com.example.spring_dblab.utils.SecurityUtil;
-import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -24,21 +20,33 @@ public class AuthController {
     AuthController(AuthService authService) {
         this.authService = authService;
     }
+
+    //"/auth/token?grant_type=refresh"
     @PostMapping("/login")
-    public TokenInfo login(@RequestBody LoginDto loginDto, HttpServletResponse response) {
+    public TokenInfo login(@RequestBody LoginDto loginDto) {
         return authService.login(loginDto);
     }
 
     @PostMapping("/signup")
     public String signUp(@RequestBody SignupDto signupDto) { return  authService.signUp(signupDto);}
 
-    @GetMapping("/relogin")
-    public Optional<User> reLogin() {
-        return authService.reLogin();
+    @GetMapping("/token")
+    public Optional<TokenInfo> Token(@ModelAttribute("dto") Object dto) throws Exception {
+        if(dto instanceof RefreshTokenDto) {
+            RefreshTokenDto refreshTokenDto = (RefreshTokenDto) dto;
+            return Optional.ofNullable(authService.refreshToken(refreshTokenDto));
+        } else if(dto == null) {
+            return authService.reLogin();
+        }
+        return Optional.empty();
     }
 
-    @PostMapping("/refresh")
-    public TokenInfo refreshToken(@RequestBody RefreshTokenDto refreshTokenDto) throws Exception {
-        return authService.refreshToken(refreshTokenDto);
+    @ModelAttribute
+    public void setupDto(@RequestParam("grant_type") String grantType, Model model) {
+        if ("refresh".equals(grantType)) {
+            model.addAttribute("dto", new RefreshTokenDto());
+        } else if("recertification".equals(grantType)) {
+            model.addAttribute("dto", null);
+        }
     }
 }

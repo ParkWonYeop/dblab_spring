@@ -1,5 +1,6 @@
 package com.example.spring_dblab.configure;
 
+import com.example.spring_dblab.enums.RoleEnum;
 import com.example.spring_dblab.jwt.JwtAuthenticationFilter;
 import com.example.spring_dblab.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -56,8 +57,8 @@ public class MyConfiguration implements WebMvcConfigurer{
                 .requestMatchers("/auth/login").permitAll()
                 .requestMatchers("/auth/signup").permitAll()
                 .requestMatchers("/auth/refresh").permitAll()
-                .requestMatchers("/admin/**").hasRole("ADMIN")
-                .requestMatchers("/organizer/**").hasRole("ORGANIZER")
+                .requestMatchers("/admin/**").hasRole(RoleEnum.ADMIN.name())
+                .requestMatchers("/organizer/**").hasRole(RoleEnum.ORGANIZER.name())
                 .anyRequest().authenticated()
                 .and()
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
