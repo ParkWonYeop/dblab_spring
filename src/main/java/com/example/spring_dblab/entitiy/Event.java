@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+
 import java.time.LocalDateTime;
 
 @Data
@@ -21,7 +22,7 @@ public class Event {
     @Column(nullable = false)
     private String name;
 
-    @Column(nullable = false, length = 60000)
+    @Column(nullable = false, length = 6000)
     private String description;
 
     @ManyToOne

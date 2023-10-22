@@ -5,6 +5,7 @@ import com.example.spring_dblab.entitiy.Event;
 import com.example.spring_dblab.entitiy.User;
 import com.example.spring_dblab.repository.EventRepository;
 import com.example.spring_dblab.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,15 +14,10 @@ import java.util.Optional;
 import static com.example.spring_dblab.utils.SecurityUtil.getCurrentMemberId;
 
 @Service
+@RequiredArgsConstructor
 public class OrganizeService {
     private final EventRepository eventRepository;
     private final UserRepository userRepository;
-
-    @Autowired
-    public OrganizeService(EventRepository eventRepository, UserRepository userRepository) {
-        this.eventRepository = eventRepository;
-        this.userRepository = userRepository;
-    }
 
     public String addEvent(EventDto eventDto) throws Exception {
         try {

@@ -57,6 +57,7 @@ public class MyConfiguration implements WebMvcConfigurer{
                 .requestMatchers("/auth/login").permitAll()
                 .requestMatchers("/auth/signup").permitAll()
                 .requestMatchers("/auth/refresh").permitAll()
+                .requestMatchers("/message/**").permitAll()
                 .requestMatchers("/admin/**").hasRole(RoleEnum.ADMIN.name())
                 .requestMatchers("/organizer/**").hasRole(RoleEnum.ORGANIZER.name())
                 .anyRequest().authenticated()

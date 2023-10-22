@@ -41,12 +41,12 @@ public class AuthController {
         return Optional.empty();
     }
 
-    @ModelAttribute
+    /*@ModelAttribute
     public void setupDto(@RequestParam("grant_type") String grantType, Model model) {
         if ("refresh".equals(grantType)) {
             model.addAttribute("dto", new RefreshTokenDto());
         } else if("recertification".equals(grantType)) {
             model.addAttribute("dto", null);
         }
-    }
+    }*/
 }

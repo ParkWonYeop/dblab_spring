@@ -7,6 +7,7 @@ import com.example.spring_dblab.entitiy.User;
 import com.example.spring_dblab.repository.EventRepository;
 import com.example.spring_dblab.repository.EventReviewRepository;
 import com.example.spring_dblab.repository.UserRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -16,14 +17,10 @@ import java.util.Optional;
 import static com.example.spring_dblab.utils.SecurityUtil.getCurrentMemberId;
 
 @Service
+@RequiredArgsConstructor
 public class EventService {
     private final EventRepository eventRepository;
     private final EventReviewRepository eventReviewRepository;
-
-    EventService(EventRepository eventRepository, UserRepository userRepository, EventReviewRepository eventReviewRepository) {
-        this.eventRepository = eventRepository;
-        this.eventReviewRepository = eventReviewRepository;
-    }
 
     public List<Event> getEvent() {
         try {

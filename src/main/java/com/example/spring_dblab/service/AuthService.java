@@ -9,6 +9,7 @@ import com.example.spring_dblab.jwt.JwtTokenProvider;
 import com.example.spring_dblab.entitiy.User;
 import com.example.spring_dblab.repository.UserRepository;
 import io.jsonwebtoken.Claims;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -23,22 +24,13 @@ import java.util.*;
 import static com.example.spring_dblab.utils.SecurityUtil.getCurrentMemberId;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
     private final BCryptPasswordEncoder encoder;
     private final UserRepository userRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
-
     private final CustomUserDetailService customUserDetailService;
-
-    @Autowired
-    public AuthService(BCryptPasswordEncoder encoder, UserRepository userRepository, AuthenticationManagerBuilder authenticationManagerBuilder, JwtTokenProvider jwtTokenProvider, CustomUserDetailService customUserDetailService) {
-        this.encoder = encoder;
-        this.userRepository = userRepository;
-        this.authenticationManagerBuilder = authenticationManagerBuilder;
-        this.jwtTokenProvider = jwtTokenProvider;
-        this.customUserDetailService = customUserDetailService;
-    }
 
     public TokenInfo login(LoginDto loginDto) {
         try {
