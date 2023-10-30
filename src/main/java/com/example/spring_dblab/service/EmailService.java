@@ -21,13 +21,13 @@ public class EmailService {
     private String ADMIN_ADDRESS;
 
     @Async
-    public void sendMail() throws MessagingException, UnsupportedEncodingException {
+    public void sendMail(String sendTo, String word) throws MessagingException, UnsupportedEncodingException {
         MimeMessage message = javaMailSender.createMimeMessage();
-        message.addRecipients(Message.RecipientType.TO,"pwy9679@gnu.ac.kr");
-        message.setSubject("테스트");
-        String text = "테스트메세지입니다";
+        message.addRecipients(Message.RecipientType.TO,sendTo);
+        message.setSubject("이벤트 알림");
+        String text = word+" 단어를 포함한 이벤트가 등록되었습니다.";
         message.setText(text,"utf-8");
-        message.setFrom(new InternetAddress(ADMIN_ADDRESS,"이름"));
+        message.setFrom(new InternetAddress(ADMIN_ADDRESS,"no-reply"));
         javaMailSender.send(message);
     }
 }

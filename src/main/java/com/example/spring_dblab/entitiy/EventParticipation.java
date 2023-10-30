@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class EventReview {
+public class EventParticipation {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private long id;
@@ -26,25 +26,11 @@ public class EventReview {
     @JoinColumn(name="event_id")
     private Event event;
 
-    @Column
-    private String review;
-
-    @Column
-    private int score;
-
     @CreationTimestamp
-    @Column(name = "created_at", nullable = false, updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDateTime createdAt;
 
     @UpdateTimestamp
-    @Column(name = "updated_at", nullable = false)
+    @Column(nullable = false)
     private LocalDateTime updatedAt;
-
-    @Builder
-    public EventReview(User user, Event event, String review, int score) {
-        this.user = user;
-        this.event = event;
-        this.review = review;
-        this.score = score;
-    }
 }

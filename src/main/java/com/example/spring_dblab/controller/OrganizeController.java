@@ -1,6 +1,7 @@
 package com.example.spring_dblab.controller;
 
 import com.example.spring_dblab.dto.EventDto;
+import com.example.spring_dblab.dto.EventEditDto;
 import com.example.spring_dblab.dto.SignupDto;
 import com.example.spring_dblab.service.OrganizeService;
 import lombok.extern.slf4j.Slf4j;
@@ -21,16 +22,21 @@ public class OrganizeController {
 
     @PostMapping("/event")
     public String addEvent(@RequestBody EventDto eventDto) throws Exception {
-        try{
-            return organizeService.addEvent(eventDto);
-        } catch(Exception e) {
-            throw e;
-        }
+        return organizeService.addEvent(eventDto);
+    }
+
+    @PutMapping("/event")
+    public String editEvent(@RequestBody EventEditDto eventEditDto) throws Exception {
+        return organizeService.editEvent(eventEditDto);
+    }
+
+    @DeleteMapping("/event")
+    public String deleteEvent(@RequestBody EventEditDto eventEditDto) throws Exception {
+        return organizeService.deleteEvent(eventEditDto);
     }
 
     @GetMapping()
     public String authOrganizer() {
-
         return "ok";
     }
 }

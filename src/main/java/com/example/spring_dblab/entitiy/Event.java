@@ -25,6 +25,9 @@ public class Event {
     @Column(nullable = false, length = 6000)
     private String description;
 
+    @Column(nullable = false)
+    private long maxParticipation;
+
     @ManyToOne
     @JoinColumn(name="user_id")
     private User user;

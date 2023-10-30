@@ -7,6 +7,8 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class RefreshTokenDto {
-    private String refreshToken;
+public class EventEditDto {
+    private long eventCode;
+    private String name;
+    private String description;
 }

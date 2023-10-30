@@ -41,9 +41,7 @@ public class AuthService {
 
             Authentication authentication = authenticationManagerBuilder.getObject().authenticate(authenticationToken);
 
-            TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
-
-            return tokenInfo;
+            return jwtTokenProvider.generateToken(authentication);
         } catch(Exception err) {
             err.printStackTrace();
             throw err;
@@ -72,7 +70,7 @@ public class AuthService {
     public Optional<TokenInfo> reLogin () {
         try {
             Optional<User> user = userRepository.findByEmail(getCurrentMemberId());
-            return null;
+            return Optional.empty();
         } catch (Exception err) {
             throw err;
         }
@@ -108,9 +106,7 @@ public class AuthService {
 
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user.get().getUsername(),null,newAuthorities);
 
-            TokenInfo tokenInfo = jwtTokenProvider.generateToken(authentication);
-
-            return tokenInfo;
+            return jwtTokenProvider.generateToken(authentication);
         } catch(Exception err) {
             throw err;
         }

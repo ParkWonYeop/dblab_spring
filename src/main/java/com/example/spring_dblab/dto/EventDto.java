@@ -8,6 +8,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class EventDto {
-    String name;
-    String description;
+    private String name;
+    private String description;
 }

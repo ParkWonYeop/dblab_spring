@@ -7,6 +7,8 @@ import lombok.Setter;
 @Data
 @Getter
 @Setter
-public class RefreshTokenDto {
-    private String refreshToken;
+public class ReviewDto {
+    private long eventId;
+    private String review;
+    private int score;
 }

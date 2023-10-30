@@ -1,12 +1,13 @@
 package com.example.spring_dblab.controller;
 
+import com.example.spring_dblab.dto.AlarmDto;
+import com.example.spring_dblab.dto.ReviewDto;
 import com.example.spring_dblab.entitiy.Event;
 import com.example.spring_dblab.entitiy.EventReview;
 import com.example.spring_dblab.service.EventService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -39,7 +40,17 @@ public class EventController {
     }
 
     @GetMapping("/review")
-    public List<EventReview> getReview(@RequestParam("eventName") String eventName) {
+    public List<EventReview> getReview(@RequestParam("eventName") long eventName) throws Exception {
         return this.eventService.getReview(eventName);
+    }
+
+    @PostMapping("/alarm")
+    public String setAlarmWord(@RequestBody AlarmDto alarmDto) throws Exception {
+        return eventService.setAlarmWord(alarmDto);
+    }
+
+    @PostMapping("/review")
+    public String addReview(@RequestBody ReviewDto reviewDto) {
+        return eventService.addReview(reviewDto);
     }
 }
